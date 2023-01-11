@@ -1,0 +1,18 @@
+version: '1.0.0'
+services:
+  load-balancer:
+    image: nginx
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - shortener
+
+  shortener:
+    build:
+      context: "./shortener"
+    ports:
+      - "8000"
+    deploy:
+      replicas: 3
